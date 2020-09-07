@@ -3,6 +3,7 @@ package com.aalgorithm;
 import java.awt.Point;
 import java.util.ArrayList;
 
+@SuppressWarnings("unused")
 public class ApathFinder extends Thread{
 
 	
@@ -15,7 +16,7 @@ public class ApathFinder extends Thread{
 	
 	private ArrayList<AfinderEvent> aFinderListeners = null;
 	
-	private int sleepTime = 10;
+	private int sleepTime = 0;
 	
 	public ApathFinder() {
 		openSet = new ArrayList<Anode>();
@@ -36,6 +37,7 @@ public class ApathFinder extends Thread{
 		finalPath.clear();
 		outFinder = false;
 		
+		double startTime = System.currentTimeMillis();
 		
 		openSet.add(start);
 		Anode current = null;
@@ -69,23 +71,23 @@ public class ApathFinder extends Thread{
 				int tempG = current.getG() + 1; // +  1 lo que cuesta ir del current al vecino es este caso 1 para todos
 
 				if (openSet.contains(aux)) {
-					if (tempG < aux.getG()) {
-						int index = 0;
-						for (Anode auxSet : openSet) {
-							if (auxSet.equals(aux))
-								break;
-							index++;
-
-						}
-						openSet.get(index).setG(tempG);
-						openSet.get(index).setH(heuristicManhattanDistance(aux, end));
-						openSet.get(index).setF(aux.getG() + aux.getH());
-						openSet.get(index).setAnterior(current);
+					int index = 0;
+					for (Anode auxSet : openSet) {
+						if (auxSet.equals(aux))
+							break;
+						index++;
+					}
+					Anode nodeToUpdate = openSet.get(index);
+					if (tempG < nodeToUpdate.getG()) {
+						nodeToUpdate.setG(tempG);
+						nodeToUpdate.setH(heuristicDiagonalDistance(aux, end));
+						nodeToUpdate.setF(aux.getG() + aux.getH());
+						nodeToUpdate.setAnterior(current);
 						System.out.println("a");
 					}
 				} else {
 					aux.setG(tempG);
-					aux.setH(heuristicManhattanDistance(aux, end));
+					aux.setH(heuristicDiagonalDistance(aux, end));
 					aux.setF(aux.getG() + aux.getH());
 					aux.setAnterior(current);
 					openSet.add(aux);
@@ -101,11 +103,14 @@ public class ApathFinder extends Thread{
 			}
 			
 			this.generateFinalPath(current);
-
 			for (AfinderEvent listener : this.aFinderListeners) {
 				listener.aNodeEvalauted(this.openSet,this.closeSet,this.finalPath);
 			}
 		}
+		
+		double estimatedTime = System.currentTimeMillis() - startTime;
+		double seconds = estimatedTime/1000;
+		System.out.println(seconds + " seconds");
 	}
 	
 	private void generateFinalPath(Anode current) {
@@ -132,16 +137,15 @@ public class ApathFinder extends Thread{
 		this.end = new Anode(end);
 	}
 	
+
 	private int heuristicDiagonalDistance(Anode a, Anode b) {
 		return (int) Math.max(Math.abs(a.getCoordenadas().x-b.getCoordenadas().x),Math.abs(a.getCoordenadas().y-b.getCoordenadas().y));
 	}
 	
-	@SuppressWarnings("unused")
 	private int heuristicManhattanDistance(Anode a, Anode b) {
 		return (int) Math.abs(a.getCoordenadas().x-b.getCoordenadas().x) + Math.abs(a.getCoordenadas().y-b.getCoordenadas().y);
 	}
 	
-	@SuppressWarnings("unused")
 	private int heuristicEuclideanDistance(Anode a, Anode b) {
 		return (int) a.getCoordenadas().distance(b.getCoordenadas());
 	}
