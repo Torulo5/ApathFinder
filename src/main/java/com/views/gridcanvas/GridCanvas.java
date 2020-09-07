@@ -63,31 +63,36 @@ public class GridCanvas extends JPanel{
 		maG.setSetNewPoints(true);
 	}
 	
+	public void removePoint(Point point) {
+		ArrayList<Point> aux = null;
+		for (Map.Entry<Color, ArrayList<Point>> entry : paintData.entrySet()) {
+			if(entry.getValue().contains(point)) {
+				aux = entry.getValue();
+				break;
+			}
+		}
+		if(aux != null)
+			aux.remove(point);
+	}
+	
 	public synchronized void  addPoint(Point point, Color color) {
+		
+		this.removePoint(point);
+		
 		ArrayList<Point> puntos = paintData.get(color);
 		if( puntos == null) {
 			ArrayList<Point> auxPuntos = new ArrayList<Point>();
 			auxPuntos.add(point);
 			paintData.put(color, auxPuntos);
 		} else {
-			if(!puntos.contains(point)) {
-				puntos.add(point);
-			}
+			puntos.add(point);
 		}
+		
 	}
 	
 	public synchronized void  addPoints(ArrayList<Point> points, Color color) {
 		for (Point point : points) {
-			ArrayList<Point> puntos = paintData.get(color);
-			if( puntos == null) {
-				ArrayList<Point> auxPuntos = new ArrayList<Point>();
-				auxPuntos.add(point);
-				paintData.put(color, auxPuntos);
-			} else {
-				if(!puntos.contains(point)) {
-					puntos.add(point);
-				}
-			}
+			addPoint(point,color);
 		}
 	}
 	
@@ -143,6 +148,8 @@ public class GridCanvas extends JPanel{
 		}
 	}
 
+	
+	@SuppressWarnings("unused")
 	private synchronized void paintOvals(Graphics g, ArrayList<Point> pointsAlive, Color color) {
 
 		for (Point point : pointsAlive) {
