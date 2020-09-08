@@ -186,8 +186,6 @@ public class GridCanvas extends JPanel{
 		}
 	}
 
-	
-	@SuppressWarnings("unused")
 	private synchronized void paintOvals(Graphics g, ArrayList<Point> pointsAlive, Color color) {
 
 		for (Point point : pointsAlive) {
