@@ -10,14 +10,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
-
 import com.pathFinder.App;
 import com.views.gridcanvas.GridCanvas;
 import com.views.gridcanvas.GridCanvasEvent;
 import javax.swing.JCheckBox;
 import java.awt.Point;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

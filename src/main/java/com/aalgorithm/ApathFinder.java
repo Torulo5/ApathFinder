@@ -6,6 +6,7 @@ import java.util.ArrayList;
 @SuppressWarnings("unused")
 public class ApathFinder extends Thread{
 
+	private InfoMap infoMap = null;
 	
 	private Anode start = null;
 	private Anode end = null;
@@ -13,12 +14,10 @@ public class ApathFinder extends Thread{
 	private ArrayList<Anode> openSet = null;
 	private ArrayList<Anode> closeSet = null;
 	private ArrayList<Anode> finalPath = null;
-	
 	private ArrayList<AfinderEvent> aFinderListeners = null;
-	
 	private int sleepTime = 0;
-	
-	private InfoMap infoMap = null;
+
+	private boolean isFinderRunning = false;
 	
 	public ApathFinder(InfoMap map) {
 		openSet = new ArrayList<Anode>();
@@ -28,6 +27,7 @@ public class ApathFinder extends Thread{
 		this.infoMap = map;
 		start = new Anode(infoMap.getStart());
 		end = new Anode(infoMap.getEnd());
+		isFinderRunning = false;
 	}
 	
 	@Override
@@ -36,6 +36,8 @@ public class ApathFinder extends Thread{
 			System.out.println("ERROR datos");
 			return;
 		}
+		
+		this.isFinderRunning = true;
 
 		// con cada llamada reiniciamos los arrays de trabajo
 		openSet.clear();
@@ -85,16 +87,10 @@ public class ApathFinder extends Thread{
 					}
 					Anode nodeToUpdate = openSet.get(index);
 					if (tempG < nodeToUpdate.getG()) {
-						nodeToUpdate.setG(tempG);
-						nodeToUpdate.setH(heuristicDiagonalDistance(aux, end));
-						nodeToUpdate.setF(aux.getG() + aux.getH());
-						nodeToUpdate.setAnterior(current);
+						this.updateAnode(nodeToUpdate, tempG, current);;
 					}
 				} else {
-					aux.setG(tempG);
-					aux.setH(heuristicDiagonalDistance(aux, end));
-					aux.setF(aux.getG() + aux.getH());
-					aux.setAnterior(current);
+					this.updateAnode(aux, tempG, current);
 					openSet.add(aux);
 				}
 
@@ -122,6 +118,16 @@ public class ApathFinder extends Thread{
 				listener.pathFinded(this.openSet,this.closeSet,this.finalPath,seconds);
 			}
 		}	
+		
+		isFinderRunning = false;
+	}
+	
+	private void updateAnode(Anode nodeToUpdate, int newG, Anode current) {
+		nodeToUpdate.setG(newG);
+		nodeToUpdate.setH(heuristicDiagonalDistance(nodeToUpdate, end));
+		nodeToUpdate.calculateF();
+		nodeToUpdate.setAnterior(current);
+		
 	}
 	
 	private void generateFinalPath(Anode current) {
@@ -150,5 +156,9 @@ public class ApathFinder extends Thread{
 	
 	private int heuristicEuclideanDistance(Anode a, Anode b) {
 		return (int) a.getCoordenadas().distance(b.getCoordenadas());
+	}
+
+	public boolean isFinderRunning() {
+		return isFinderRunning;
 	}
 }

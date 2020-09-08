@@ -64,9 +64,10 @@ public class Anode {
 		this.h = h;
 	}
 
-	public void setF(int f) {
-		this.f = f;
+	public void calculateF() {
+		this.f = (g + h);
 	}
+	
 	public Point getCoordenadas() {
 		return coordenadas;
 	}

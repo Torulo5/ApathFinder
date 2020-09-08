@@ -38,13 +38,15 @@ public class App implements AfinderEvent{
 	}
 	
 	public void runFinder() {
-		aFinder = new ApathFinder(infoMap);
-		
-		gFrame.addPointToGrid(infoMap.getStart(), Color.GREEN);
-		gFrame.addPointToGrid(infoMap.getEnd(), Color.magenta);
-		
-		aFinder.addAfinderListenersListener(this);
-		aFinder.start();
+		if(aFinder == null || !aFinder.isFinderRunning()) {
+			aFinder = new ApathFinder(infoMap);
+			
+			gFrame.addPointToGrid(infoMap.getStart(), Color.GREEN);
+			gFrame.addPointToGrid(infoMap.getEnd(), Color.magenta);
+			
+			aFinder.addAfinderListenersListener(this);
+			aFinder.start();
+		}
 	}
 
 	public synchronized void aNodeEvalauted(ArrayList<Anode> openSet, ArrayList<Anode> closeSet, ArrayList<Anode> finalPath) {
