@@ -44,7 +44,7 @@ public class App implements AfinderEvent{
 			gFrame.addPointToGrid(infoMap.getStart(), Color.GREEN);
 			gFrame.addPointToGrid(infoMap.getEnd(), Color.magenta);
 			
-			aFinder.addAfinderListenersListener(this);
+			aFinder.addAfinderListener(this);
 			aFinder.start();
 		}
 	}

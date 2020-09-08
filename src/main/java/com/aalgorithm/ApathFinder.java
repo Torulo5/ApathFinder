@@ -38,8 +38,6 @@ public class ApathFinder extends Thread{
 		}
 		
 		this.isFinderRunning = true;
-
-		// con cada llamada reiniciamos los arrays de trabajo
 		openSet.clear();
 		closeSet.clear();
 		finalPath.clear();
@@ -142,7 +140,7 @@ public class ApathFinder extends Thread{
 		}
 	}
 	
-	public void addAfinderListenersListener(AfinderEvent afEnvent) {
+	public void addAfinderListener(AfinderEvent afEnvent) {
 		this.aFinderListeners.add(afEnvent);
 	}
 
