@@ -9,20 +9,21 @@ public class Anode {
 	private int f = 0;
 	private int g = 0;
 	private int h = 0;
-	private ArrayList<Point> relatedPoints = new ArrayList<Point>();
+	private ArrayList<Point> relatedPoints = null;
 	private Anode anterior = null;
 	
 	public Anode(Point punto) {
 		this.coordenadas = new Point(punto.x,punto.y);
-		this.generateRelatedNodes();
 	}
 	
 	public Anode(int x, int y) {
 		this.coordenadas = new Point(x,y);
-		this.generateRelatedNodes();
 	}
 	
 	private void generateRelatedNodes() {
+		if(relatedPoints == null) {
+			this.relatedPoints = new ArrayList<Point>();
+		}
 		//cruz
 		relatedPoints.add(new Point(coordenadas.x + 1, coordenadas.y));
 		relatedPoints.add(new Point(coordenadas.x - 1, coordenadas.y));
@@ -36,6 +37,10 @@ public class Anode {
 	}
 	
 	public ArrayList<Point> getRelatedNodes() {
+		if(relatedPoints == null) {
+			this.relatedPoints = new ArrayList<Point>();
+			this.generateRelatedNodes();
+		}
 		return relatedPoints;
 	}
 
@@ -72,15 +77,11 @@ public class Anode {
             return true; 
         } 
   
-        /* Check if o is an instance of Complex or not 
-          "null instanceof [type]" also returns false */
         if (!(obj instanceof Anode)) { 
             return false; 
         } 
           
-        // typecast o to Complex so that we can compare data members  
         Anode o = (Anode) obj; 
-		// TODO Auto-generated method stub
 		return this.coordenadas.equals(o.getCoordenadas());
 	}
 
