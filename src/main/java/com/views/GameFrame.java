@@ -90,6 +90,16 @@ public class GameFrame extends JFrame implements GridCanvasEvent{
 			}
 		});
 		panel_1.add(btnFind);
+		
+		JButton btnResetGrid = new JButton("RESET GRID");
+		btnResetGrid.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				grindCanvas.resetGrid();
+				grindCanvas.repaint();
+				finderApp.resetGrid();
+			}
+		});
+		panel_1.add(btnResetGrid);
 
 	}
 	

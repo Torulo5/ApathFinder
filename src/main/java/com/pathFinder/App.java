@@ -13,8 +13,8 @@ public class App implements AfinderEvent{
 
 	private GameFrame gFrame;
 	private ApathFinder aFinder = null;
-	private Point start = null;
-	private Point end = null;
+	private Point start = new Point(10,10);
+	private Point end = new Point(50,54);
 	private InfoMap infoMap = null;
 
 	public static void main(String[] args) {
@@ -32,23 +32,12 @@ public class App implements AfinderEvent{
 
 		infoMap = new InfoMap();
 		
-		aFinder = new ApathFinder(infoMap);
-		start = new Point(10,10);
-		end = new Point(50,54);
-		aFinder.setStart(start);
-		aFinder.setEnd(end);
-		
 		gFrame.addPointToGrid(start, Color.GREEN);
 		gFrame.addPointToGrid(end, Color.magenta);
-		
-		aFinder.addAfinderListenersListener(this);
-
 	}
 	
 	public void runFinder() {
 		aFinder = new ApathFinder(infoMap);
-		start = new Point(10,10);
-		end = new Point(50,54);
 		aFinder.setStart(start);
 		aFinder.setEnd(end);
 		
@@ -95,6 +84,13 @@ public class App implements AfinderEvent{
 
 	public void setBlockedPoint(Point punto) {
 		infoMap.addBlockedPoint(punto);
+	}
+	
+	public void resetGrid() {
+		infoMap.clearAllData();
+		gFrame.addPointToGrid(start, Color.GREEN);
+		gFrame.addPointToGrid(end, Color.magenta);
+		gFrame.repaint();
 	}
 
 

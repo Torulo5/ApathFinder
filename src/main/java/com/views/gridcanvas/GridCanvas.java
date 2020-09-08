@@ -55,6 +55,11 @@ public class GridCanvas extends JPanel{
 		this.paintData.clear();
 	}
 	
+	public synchronized void  resetGrid() {
+		this.paintData.clear();
+		this.staticsPoints.clear();
+	}
+	
 	public void changeToDragg() {
 		maG.setSetNewPoints(false);
 	}

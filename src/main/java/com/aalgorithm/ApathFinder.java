@@ -91,7 +91,6 @@ public class ApathFinder extends Thread{
 						nodeToUpdate.setH(heuristicDiagonalDistance(aux, end));
 						nodeToUpdate.setF(aux.getG() + aux.getH());
 						nodeToUpdate.setAnterior(current);
-						System.out.println("a");
 					}
 				} else {
 					aux.setG(tempG);
@@ -114,6 +113,10 @@ public class ApathFinder extends Thread{
 			for (AfinderEvent listener : this.aFinderListeners) {
 				listener.aNodeEvalauted(this.openSet,this.closeSet,this.finalPath);
 			}
+		}
+		
+		if(!outFinder) {
+			System.out.println("NO SE ENCOTRO CAMINO");
 		}
 		
 		double estimatedTime = System.currentTimeMillis() - startTime;
