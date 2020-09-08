@@ -18,17 +18,19 @@ public class InfoMap {
 		this.pointsDiferentCost = new ArrayList<Point>();
 	}
 	
-	
-	public ArrayList<Point> calculateNeighbors(Point point) {
-		return null;
+	public void addBlockedPoint(Point punto) {
+		pointsBlocked.add(punto);
 	}
 	
-
 	public int getCostOfPoint(Point point) {
 		return 0;
 	}
 	
 	public boolean isBlocked(Point point) {
-		return false;
+		boolean isBlocked = false;
+		if(pointsBlocked.contains(point)) {
+			isBlocked = true;
+		}
+		return isBlocked;
 	}
 }
