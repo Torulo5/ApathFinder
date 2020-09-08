@@ -33,4 +33,9 @@ public class InfoMap {
 		}
 		return isBlocked;
 	}
+	
+	public void clearAllData() {
+		pointsBlocked.clear();
+		pointsDiferentCost.clear();
+	}
 }
