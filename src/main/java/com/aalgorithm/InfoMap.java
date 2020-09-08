@@ -24,8 +24,16 @@ public class InfoMap {
 		pointsBlocked.add(punto);
 	}
 	
+	public void addDiferentCostPoint(Point punto) {
+		pointsDiferentCost.add(punto);
+	}
+	
 	public int getCostOfPoint(Point point) {
-		return 0;
+		int coste = 1;
+		if(pointsDiferentCost.contains(point)) {
+			coste = 100;
+		}
+		return coste;
 	}
 	
 	public boolean isBlocked(Point point) {

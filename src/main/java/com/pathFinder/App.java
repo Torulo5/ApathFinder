@@ -88,6 +88,10 @@ public class App implements AfinderEvent{
 		infoMap.addBlockedPoint(punto);
 	}
 	
+	public void setIncresedGPoint(Point punto) {
+		infoMap.addDiferentCostPoint(punto);
+	}
+	
 	public void resetGrid() {
 		infoMap.clearAllData();
 		infoMap.setStart(new Point(10,10));

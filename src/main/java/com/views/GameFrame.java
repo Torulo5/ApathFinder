@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import javax.swing.ButtonGroup;
 
 
 public class GameFrame extends JFrame implements GridCanvasEvent{
@@ -32,7 +33,10 @@ public class GameFrame extends JFrame implements GridCanvasEvent{
 	private JButton btnFind = null;
 	private App finderApp = null;
 	private JLabel lblAsd  = null;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 
+	private JRadioButton rdbtnNewRadioButton = null;
+	
 	public GameFrame(App finderApp_) {
 		
 		this.finderApp = finderApp_;
@@ -40,7 +44,9 @@ public class GameFrame extends JFrame implements GridCanvasEvent{
 		panel_1.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.Y_AXIS));
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("New radio button");
+		rdbtnNewRadioButton = new JRadioButton("Bloque");
+		rdbtnNewRadioButton.setSelected(true);
+		buttonGroup.add(rdbtnNewRadioButton);
 		panel_1.add(rdbtnNewRadioButton);
 		
 		chckbxNewCheckBox = new JCheckBox("Mover");
@@ -55,6 +61,10 @@ public class GameFrame extends JFrame implements GridCanvasEvent{
 				}
 			}
 		});
+		
+		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Tierra");
+		buttonGroup.add(rdbtnNewRadioButton_1);
+		panel_1.add(rdbtnNewRadioButton_1);
 		chckbxNewCheckBox.setSelected(true);
 		panel_1.add(chckbxNewCheckBox);
 		JPanel panel = new JPanel();
@@ -129,8 +139,13 @@ public class GameFrame extends JFrame implements GridCanvasEvent{
 	}
 	
 	public void newPointEvent(Point point, boolean isLeftMouse) {
-		finderApp.setBlockedPoint(point);
-		this.addStaticPointToGrid(point, Color.gray);	
+		if(rdbtnNewRadioButton.isSelected()) {
+			finderApp.setBlockedPoint(point);
+			this.addStaticPointToGrid(point, Color.gray);	
+		} else {
+			this.addStaticPointToGrid(point, Color.ORANGE);	
+			finderApp.setIncresedGPoint(point);
+		}
 		this.repaint();
 	}
 	

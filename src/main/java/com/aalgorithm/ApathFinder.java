@@ -32,7 +32,7 @@ public class ApathFinder extends Thread{
 	
 	@Override
 	public void run() {
-		if( start ==  null && end == null && openSet == null && closeSet == null) {
+		if( start ==  null || end == null || openSet == null || closeSet == null || infoMap == null) {
 			System.out.println("ERROR datos");
 			return;
 		}
@@ -61,13 +61,13 @@ public class ApathFinder extends Thread{
 
 			ArrayList<Point> relatedNodesOfCurrent = current.getRelatedNodes();
 			for (Point relatedNode : relatedNodesOfCurrent) {
-				if(infoMap != null && infoMap.isBlocked(relatedNode))
+				if(infoMap.isBlocked(relatedNode))
 					continue;
 				Anode aux = new Anode(relatedNode);
 				if (closeSet.contains(aux))
 					continue;
 				
-				int tempG = current.getG() + 1; // +  1 lo que cuesta ir del current al vecino es este caso 1 para todos
+				int tempG = current.getG() + infoMap.getCostOfPoint(relatedNode);
 				
 				Anode nodeToUpdate = getAnodeIfExistFromOpenSet(aux);
 				if (nodeToUpdate != null) {
