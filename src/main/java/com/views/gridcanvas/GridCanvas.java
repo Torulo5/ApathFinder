@@ -80,9 +80,21 @@ public class GridCanvas extends JPanel{
 			aux.remove(point);
 	}
 	
+	public void removePointStatic(Point point) {
+		ArrayList<Point> aux = null;
+		for (Map.Entry<Color, ArrayList<Point>> entry : staticsPoints.entrySet()) {
+			if(entry.getValue().contains(point)) {
+				aux = entry.getValue();
+				break;
+			}
+		}
+		if(aux != null)
+			aux.remove(point);
+	}
+	
 	public synchronized void  addStaticPoint(Point point, Color color) {
 		
-		this.removePoint(point);
+		this.removePointStatic(point);
 		
 		ArrayList<Point> puntos = staticsPoints.get(color);
 		if( puntos == null) {
@@ -136,7 +148,7 @@ public class GridCanvas extends JPanel{
 		
 		if(staticsPoints != null) {
 			for (Map.Entry<Color, ArrayList<Point>> entry : staticsPoints.entrySet()) {
-		        paintRectangles(g,entry.getValue(),entry.getKey());
+				paintOvals(g,entry.getValue(),entry.getKey());
 			}
 		}
 	}

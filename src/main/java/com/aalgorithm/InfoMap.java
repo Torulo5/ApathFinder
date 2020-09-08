@@ -21,11 +21,19 @@ public class InfoMap {
 	}
 	
 	public void addBlockedPoint(Point punto) {
-		pointsBlocked.add(punto);
+		if(pointsDiferentCost.contains(punto))
+			pointsDiferentCost.remove(punto);
+		
+		if(!pointsBlocked.contains(punto))
+			pointsBlocked.add(punto);
 	}
 	
 	public void addDiferentCostPoint(Point punto) {
-		pointsDiferentCost.add(punto);
+		if(pointsBlocked.contains(punto))
+			pointsBlocked.remove(punto);
+		
+		if(!pointsDiferentCost.contains(punto))
+			pointsDiferentCost.add(punto);
 	}
 	
 	public int getCostOfPoint(Point point) {
