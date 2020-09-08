@@ -30,10 +30,10 @@ public class Anode {
 		relatedPoints.add(new Point(coordenadas.x, coordenadas.y + 1));
 		relatedPoints.add(new Point(coordenadas.x, coordenadas.y - 1));
 		//diagonales
-//		relatedPoints.add(new Point(coordenadas.x + 1, coordenadas.y + 1));
-//		relatedPoints.add(new Point(coordenadas.x - 1, coordenadas.y + 1));
-//		relatedPoints.add(new Point(coordenadas.x - 1, coordenadas.y + 1));
-//		relatedPoints.add(new Point(coordenadas.x + 1, coordenadas.y - 1));
+		relatedPoints.add(new Point(coordenadas.x + 1, coordenadas.y + 1));
+		relatedPoints.add(new Point(coordenadas.x - 1, coordenadas.y + 1));
+		relatedPoints.add(new Point(coordenadas.x - 1, coordenadas.y - 1));
+		relatedPoints.add(new Point(coordenadas.x + 1, coordenadas.y - 1));
 	}
 	
 	public ArrayList<Point> getRelatedNodes() {
