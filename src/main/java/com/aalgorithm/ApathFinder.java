@@ -48,12 +48,7 @@ public class ApathFinder extends Thread{
 		openSet.add(start);
 		Anode current = null;
 		while (!openSet.isEmpty() && !outFinder) {
-			current = openSet.get(0);
-			for (Anode point : openSet) {
-				if (point.getF() < current.getF()) {
-					current = point;
-				}
-			}
+			current = this.getLowestFfromOpenset();
 
 			if (current.equals(end)) {
 				this.generateFinalPath(current);
@@ -68,22 +63,14 @@ public class ApathFinder extends Thread{
 			for (Point relatedNode : relatedNodesOfCurrent) {
 				if(infoMap != null && infoMap.isBlocked(relatedNode))
 					continue;
-				
 				Anode aux = new Anode(relatedNode);
-				
 				if (closeSet.contains(aux))
 					continue;
-
+				
 				int tempG = current.getG() + 1; // +  1 lo que cuesta ir del current al vecino es este caso 1 para todos
-
-				if (openSet.contains(aux)) {
-					int index = 0;
-					for (Anode auxSet : openSet) {
-						if (auxSet.equals(aux))
-							break;
-						index++;
-					}
-					Anode nodeToUpdate = openSet.get(index);
+				
+				Anode nodeToUpdate = getAnodeIfExistFromOpenSet(aux);
+				if (nodeToUpdate != null) {
 					if (tempG < nodeToUpdate.getG()) {
 						this.updateAnode(nodeToUpdate, tempG, current);;
 					}
@@ -91,8 +78,6 @@ public class ApathFinder extends Thread{
 					this.updateAnode(aux, tempG, current);
 					openSet.add(aux);
 				}
-
-
 			}
 			
 			try {
@@ -118,6 +103,27 @@ public class ApathFinder extends Thread{
 		}	
 		
 		isFinderRunning = false;
+	}
+	
+	private Anode getAnodeIfExistFromOpenSet(Anode searchedAnode) {
+		Anode aux = null;
+		for (Anode auxSet : openSet) {
+			if (auxSet.equals(searchedAnode)) {
+				aux = auxSet;
+				break;
+			}
+		}
+		return aux;
+	}
+	
+	private Anode getLowestFfromOpenset(){
+		Anode current = openSet.get(0);
+		for (Anode point : openSet) {
+			if (point.getF() < current.getF()) {
+				current = point;
+			}
+		}
+		return current;
 	}
 	
 	private void updateAnode(Anode nodeToUpdate, int newG, Anode current) {
