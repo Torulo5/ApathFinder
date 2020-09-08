@@ -7,14 +7,13 @@ import java.util.ArrayList;
 import com.aalgorithm.AfinderEvent;
 import com.aalgorithm.Anode;
 import com.aalgorithm.ApathFinder;
+import com.aalgorithm.InfoMap;
 import com.views.GameFrame;
 
 public class App implements AfinderEvent{
 
 	private GameFrame gFrame;
 	private ApathFinder aFinder = null;
-	private Point start = new Point(10,10);
-	private Point end = new Point(50,54);
 	private InfoMap infoMap = null;
 
 	public static void main(String[] args) {
@@ -31,18 +30,18 @@ public class App implements AfinderEvent{
 		gFrame.setVisible(true);
 
 		infoMap = new InfoMap();
+		infoMap.setStart(new Point(10,10));
+		infoMap.setEnd(new Point(25,30));
 		
-		gFrame.addPointToGrid(start, Color.GREEN);
-		gFrame.addPointToGrid(end, Color.magenta);
+		gFrame.addPointToGrid(infoMap.getStart(), Color.GREEN);
+		gFrame.addPointToGrid(infoMap.getEnd(), Color.magenta);
 	}
 	
 	public void runFinder() {
 		aFinder = new ApathFinder(infoMap);
-		aFinder.setStart(start);
-		aFinder.setEnd(end);
 		
-		gFrame.addPointToGrid(start, Color.GREEN);
-		gFrame.addPointToGrid(end, Color.magenta);
+		gFrame.addPointToGrid(infoMap.getStart(), Color.GREEN);
+		gFrame.addPointToGrid(infoMap.getEnd(), Color.magenta);
 		
 		aFinder.addAfinderListenersListener(this);
 		aFinder.start();
@@ -77,8 +76,8 @@ public class App implements AfinderEvent{
 		gFrame.addPointsToGrid(closeSetPoints, Color.RED); 
 		gFrame.addPointsToGrid(openSetPoints, Color.BLUE); 
 		gFrame.addPointsToGrid(finalPathPoints, Color.CYAN); 
-		gFrame.addPointToGrid(start, Color.GREEN);
-		gFrame.addPointToGrid(end, Color.magenta);
+		gFrame.addPointToGrid(infoMap.getStart(), Color.GREEN);
+		gFrame.addPointToGrid(infoMap.getEnd(), Color.magenta);
 		gFrame.repaint();
 	}
 	
@@ -89,8 +88,10 @@ public class App implements AfinderEvent{
 	
 	public void resetGrid() {
 		infoMap.clearAllData();
-		gFrame.addPointToGrid(start, Color.GREEN);
-		gFrame.addPointToGrid(end, Color.magenta);
+		infoMap.setStart(new Point(10,10));
+		infoMap.setEnd(new Point(25,30));
+		gFrame.addPointToGrid(infoMap.getStart(), Color.GREEN);
+		gFrame.addPointToGrid(infoMap.getEnd(), Color.magenta);
 		gFrame.repaint();
 	}
 

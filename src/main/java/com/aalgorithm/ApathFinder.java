@@ -3,8 +3,6 @@ package com.aalgorithm;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import com.pathFinder.InfoMap;
-
 @SuppressWarnings("unused")
 public class ApathFinder extends Thread{
 
@@ -28,8 +26,11 @@ public class ApathFinder extends Thread{
 		finalPath = new ArrayList<Anode>();
 		aFinderListeners = new ArrayList<AfinderEvent>();
 		this.infoMap = map;
+		start = new Anode(infoMap.getStart());
+		end = new Anode(infoMap.getEnd());
 	}
 	
+	@Override
 	public void run() {
 		if( start ==  null && end == null && openSet == null && closeSet == null) {
 			System.out.println("ERROR datos");
@@ -53,7 +54,7 @@ public class ApathFinder extends Thread{
 					current = point;
 				}
 			}
-			//System.out.println(current.getCoordenadas() + " F:" + current.getF());
+
 			if (current.equals(end)) {
 				this.generateFinalPath(current);
 				outFinder = true;
@@ -112,15 +113,15 @@ public class ApathFinder extends Thread{
 			}
 		}
 		
-		if(!outFinder) {
-			System.out.println("NO SE ENCOTRO CAMINO");
-		}
-		
 		double estimatedTime = System.currentTimeMillis() - startTime;
 		double seconds = estimatedTime/1000;
-		for (AfinderEvent listener : this.aFinderListeners) {
-			listener.pathFinded(this.openSet,this.closeSet,this.finalPath,seconds);
-		}
+		if(!outFinder) {
+			System.out.println("NO SE ENCOTRO CAMINO");
+		} else {
+			for (AfinderEvent listener : this.aFinderListeners) {
+				listener.pathFinded(this.openSet,this.closeSet,this.finalPath,seconds);
+			}
+		}	
 	}
 	
 	private void generateFinalPath(Anode current) {
@@ -138,15 +139,6 @@ public class ApathFinder extends Thread{
 	public void addAfinderListenersListener(AfinderEvent afEnvent) {
 		this.aFinderListeners.add(afEnvent);
 	}
-
-	public void setStart(Point start) {
-		this.start = new Anode(start);
-	}
-
-	public void setEnd(Point end) {
-		this.end = new Anode(end);
-	}
-	
 
 	private int heuristicDiagonalDistance(Anode a, Anode b) {
 		return (int) Math.max(Math.abs(a.getCoordenadas().x-b.getCoordenadas().x),Math.abs(a.getCoordenadas().y-b.getCoordenadas().y));

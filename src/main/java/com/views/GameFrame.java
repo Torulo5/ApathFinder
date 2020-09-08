@@ -22,6 +22,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.BevelBorder;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 
 public class GameFrame extends JFrame implements GridCanvasEvent{
@@ -45,9 +47,10 @@ public class GameFrame extends JFrame implements GridCanvasEvent{
 		panel_1.add(rdbtnNewRadioButton);
 		
 		chckbxNewCheckBox = new JCheckBox("Mover");
-		chckbxNewCheckBox.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		chckbxNewCheckBox.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				if(grindCanvas == null)
+					return;
 				if(chckbxNewCheckBox.isSelected()) {
 					grindCanvas.changeToDragg();
 				} else {

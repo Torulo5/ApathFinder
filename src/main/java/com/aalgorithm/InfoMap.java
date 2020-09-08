@@ -1,4 +1,4 @@
-package com.pathFinder;
+package com.aalgorithm;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -12,6 +12,8 @@ public class InfoMap {
 
 	private ArrayList<Point> pointsBlocked = null;
 	private ArrayList<Point> pointsDiferentCost = null;
+	private Point start = null;
+	private Point end = null;
 	
 	public InfoMap() {
 		this.pointsBlocked = new ArrayList<Point>();
@@ -34,8 +36,26 @@ public class InfoMap {
 		return isBlocked;
 	}
 	
+	public Point getStart() {
+		return start;
+	}
+
+	public Point getEnd() {
+		return end;
+	}
+
+	public void setStart(Point start) {
+		this.start = start;
+	}
+
+	public void setEnd(Point end) {
+		this.end = end;
+	}
+	
 	public void clearAllData() {
 		pointsBlocked.clear();
 		pointsDiferentCost.clear();
+		start = null;
+		end = null;
 	}
 }
