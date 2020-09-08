@@ -52,8 +52,9 @@ public class App implements AfinderEvent{
 		this.handlerAfinderEvent(openSet, closeSet, finalPath);
 	}
 
-	public void pathFinded(ArrayList<Anode> openSet, ArrayList<Anode> closeSet, ArrayList<Anode> finalPath) {
+	public void pathFinded(ArrayList<Anode> openSet, ArrayList<Anode> closeSet, ArrayList<Anode> finalPath, double seconds) {
 		this.handlerAfinderEvent(openSet, closeSet, finalPath);
+		gFrame.setTimeElapsedInSearch(seconds);
 	}
 	
 	private void handlerAfinderEvent(ArrayList<Anode> openSet, ArrayList<Anode> closeSet, ArrayList<Anode> finalPath) {

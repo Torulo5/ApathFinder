@@ -56,9 +56,6 @@ public class ApathFinder extends Thread{
 			//System.out.println(current.getCoordenadas() + " F:" + current.getF());
 			if (current.equals(end)) {
 				this.generateFinalPath(current);
-				for (AfinderEvent listener : this.aFinderListeners) {
-					listener.pathFinded(this.openSet,this.closeSet,this.finalPath);
-				}
 				outFinder = true;
 				break;
 			}
@@ -121,7 +118,9 @@ public class ApathFinder extends Thread{
 		
 		double estimatedTime = System.currentTimeMillis() - startTime;
 		double seconds = estimatedTime/1000;
-		System.out.println(seconds + " seconds");
+		for (AfinderEvent listener : this.aFinderListeners) {
+			listener.pathFinded(this.openSet,this.closeSet,this.finalPath,seconds);
+		}
 	}
 	
 	private void generateFinalPath(Anode current) {

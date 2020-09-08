@@ -32,6 +32,7 @@ public class GameFrame extends JFrame implements GridCanvasEvent{
 	private JCheckBox chckbxNewCheckBox = null;
 	private JButton btnFind = null;
 	private App finderApp = null;
+	private JLabel lblAsd  = null;
 
 	public GameFrame(App finderApp_) {
 		
@@ -58,7 +59,7 @@ public class GameFrame extends JFrame implements GridCanvasEvent{
 		panel_1.add(chckbxNewCheckBox);
 		JPanel panel = new JPanel();
 		panel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		JLabel lblAsd = new JLabel("ASD");
+		lblAsd = new JLabel(" ");
 		panel.add(lblAsd);
 
 		
@@ -83,14 +84,6 @@ public class GameFrame extends JFrame implements GridCanvasEvent{
 		chckbxNewCheckBox.setFocusable(false);
 		rdbtnNewRadioButton.setFocusable(false);
 		
-		btnFind = new JButton("FIND");
-		btnFind.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				finderApp.runFinder();
-			}
-		});
-		panel_1.add(btnFind);
-		
 		JButton btnResetGrid = new JButton("RESET GRID");
 		btnResetGrid.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -100,7 +93,19 @@ public class GameFrame extends JFrame implements GridCanvasEvent{
 			}
 		});
 		panel_1.add(btnResetGrid);
+		
+		btnFind = new JButton("FIND");
+		btnFind.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				finderApp.runFinder();
+			}
+		});
+		panel_1.add(btnFind);
 
+	}
+	
+	public void setTimeElapsedInSearch(double seconds) {
+		this.lblAsd.setText(seconds + " Seconds");
 	}
 	
 	public void clearAllPoint() {
