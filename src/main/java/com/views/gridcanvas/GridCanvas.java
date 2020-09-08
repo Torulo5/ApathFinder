@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JPanel;
 
-import com.aalgorithm.Anode;
-
 public class GridCanvas extends JPanel{
 
 	private static final long serialVersionUID = 1L;
@@ -35,6 +33,8 @@ public class GridCanvas extends JPanel{
 	private int yActual = 0;
 
 	private HashMap<Color, ArrayList<Point>> paintData = new HashMap<Color, ArrayList<Point>>();
+	
+	private HashMap<Color, ArrayList<Point>> staticsPoints = new HashMap<Color, ArrayList<Point>>();
 	
 	private MouseAdapterGrid maG = null;
 	
@@ -75,6 +75,21 @@ public class GridCanvas extends JPanel{
 			aux.remove(point);
 	}
 	
+	public synchronized void  addStaticPoint(Point point, Color color) {
+		
+		this.removePoint(point);
+		
+		ArrayList<Point> puntos = staticsPoints.get(color);
+		if( puntos == null) {
+			ArrayList<Point> auxPuntos = new ArrayList<Point>();
+			auxPuntos.add(point);
+			staticsPoints.put(color, auxPuntos);
+		} else {
+			puntos.add(point);
+		}
+		
+	}
+	
 	public synchronized void  addPoint(Point point, Color color) {
 		
 		this.removePoint(point);
@@ -110,6 +125,12 @@ public class GridCanvas extends JPanel{
 			paintLines(g);
 		if(paintData != null) {
 			for (Map.Entry<Color, ArrayList<Point>> entry : paintData.entrySet()) {
+		        paintRectangles(g,entry.getValue(),entry.getKey());
+			}
+		}
+		
+		if(staticsPoints != null) {
+			for (Map.Entry<Color, ArrayList<Point>> entry : staticsPoints.entrySet()) {
 		        paintRectangles(g,entry.getValue(),entry.getKey());
 			}
 		}

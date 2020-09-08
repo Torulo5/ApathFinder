@@ -101,6 +101,10 @@ public class GameFrame extends JFrame implements GridCanvasEvent{
 		this.grindCanvas.addPoint(punto,color);
 	}
 	
+	public void addStaticPointToGrid(Point punto, Color color) {
+		this.grindCanvas.addStaticPoint(punto,color);
+	}
+	
 	public void addPointsToGrid(ArrayList<Point> points, Color color) {
 		this.grindCanvas.addPoints(points, color);
 	}
@@ -110,8 +114,8 @@ public class GameFrame extends JFrame implements GridCanvasEvent{
 	}
 	
 	public void newPointEvent(Point point, boolean isLeftMouse) {
-		System.out.println(point + " " + isLeftMouse);
-		this.addPointToGrid(point, Color.gray);	
+		finderApp.setBlockedPoint(point);
+		this.addStaticPointToGrid(point, Color.gray);	
 		this.repaint();
 	}
 	

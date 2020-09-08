@@ -3,6 +3,8 @@ package com.aalgorithm;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import com.pathFinder.InfoMap;
+
 @SuppressWarnings("unused")
 public class ApathFinder extends Thread{
 
@@ -18,11 +20,14 @@ public class ApathFinder extends Thread{
 	
 	private int sleepTime = 0;
 	
-	public ApathFinder() {
+	private InfoMap infoMap = null;
+	
+	public ApathFinder(InfoMap map) {
 		openSet = new ArrayList<Anode>();
 		closeSet = new ArrayList<Anode>();
 		finalPath = new ArrayList<Anode>();
 		aFinderListeners = new ArrayList<AfinderEvent>();
+		this.infoMap = map;
 	}
 	
 	public void run() {
@@ -63,8 +68,11 @@ public class ApathFinder extends Thread{
 
 			ArrayList<Point> relatedNodesOfCurrent = current.getRelatedNodes();
 			for (Point relatedNode : relatedNodesOfCurrent) {
+				if(infoMap != null && infoMap.isBlocked(relatedNode))
+					continue;
+				
 				Anode aux = new Anode(relatedNode);
-
+				
 				if (closeSet.contains(aux))
 					continue;
 

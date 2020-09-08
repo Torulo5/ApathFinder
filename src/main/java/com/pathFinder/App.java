@@ -15,6 +15,7 @@ public class App implements AfinderEvent{
 	private ApathFinder aFinder = null;
 	private Point start = null;
 	private Point end = null;
+	private InfoMap infoMap = null;
 
 	public static void main(String[] args) {
 		App fidnerApp = new App();
@@ -29,9 +30,11 @@ public class App implements AfinderEvent{
 		gFrame.setLocationRelativeTo(null);
 		gFrame.setVisible(true);
 
-		aFinder = new ApathFinder();
+		infoMap = new InfoMap();
+		
+		aFinder = new ApathFinder(infoMap);
 		start = new Point(10,10);
-		end = new Point(20,24);
+		end = new Point(50,54);
 		aFinder.setStart(start);
 		aFinder.setEnd(end);
 		
@@ -43,9 +46,9 @@ public class App implements AfinderEvent{
 	}
 	
 	public void runFinder() {
-		aFinder = new ApathFinder();
+		aFinder = new ApathFinder(infoMap);
 		start = new Point(10,10);
-		end = new Point(20,24);
+		end = new Point(50,54);
 		aFinder.setStart(start);
 		aFinder.setEnd(end);
 		
@@ -81,8 +84,8 @@ public class App implements AfinderEvent{
 		}
 		
 		gFrame.clearAllPoint();
-		gFrame.addPointsToGrid(openSetPoints, Color.BLUE); 
 		gFrame.addPointsToGrid(closeSetPoints, Color.RED); 
+		gFrame.addPointsToGrid(openSetPoints, Color.BLUE); 
 		gFrame.addPointsToGrid(finalPathPoints, Color.CYAN); 
 		gFrame.addPointToGrid(start, Color.GREEN);
 		gFrame.addPointToGrid(end, Color.magenta);
@@ -90,6 +93,9 @@ public class App implements AfinderEvent{
 	}
 	
 
+	public void setBlockedPoint(Point punto) {
+		infoMap.addBlockedPoint(punto);
+	}
 
 
 }
