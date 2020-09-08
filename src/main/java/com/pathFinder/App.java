@@ -49,7 +49,7 @@ public class App implements AfinderEvent{
 		}
 	}
 
-	public synchronized void aNodeEvalauted(ArrayList<Anode> openSet, ArrayList<Anode> closeSet, ArrayList<Anode> finalPath) {
+	public synchronized void aNodeEvaluated(ArrayList<Anode> openSet, ArrayList<Anode> closeSet, ArrayList<Anode> finalPath) {
 		this.handlerAfinderEvent(openSet, closeSet, finalPath);
 	}
 

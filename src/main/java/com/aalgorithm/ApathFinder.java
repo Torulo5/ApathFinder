@@ -103,7 +103,7 @@ public class ApathFinder extends Thread{
 			
 			this.generateFinalPath(current);
 			for (AfinderEvent listener : this.aFinderListeners) {
-				listener.aNodeEvalauted(this.openSet,this.closeSet,this.finalPath);
+				listener.aNodeEvaluated(this.openSet,this.closeSet,this.finalPath);
 			}
 		}
 		
