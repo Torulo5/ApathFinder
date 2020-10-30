@@ -182,7 +182,28 @@ public class GridCanvas extends JPanel{
 			}
 			g.setColor(color);
 			g.fillRect((xActual + point.x) * this.rowHt + strokeSpacer, (yActual + point.y) * this.rowWid + strokeSpacer,
-					this.rowHt - this.stroke, this.rowWid - this.stroke);
+					this.rowHt - strokeSpacer, this.rowWid - strokeSpacer);
+		}
+	}
+	
+	private synchronized void paintSurroundRectangles(Graphics g, ArrayList<Point> pointsAlive, Color color) {
+
+		int strokeSpacer = 1;
+		if (this.stroke != 1)
+			strokeSpacer = Math.round((float) this.stroke / 2);
+
+		for (Point point : pointsAlive) {
+			if (DEBUG) {
+				System.out.println("----------------------PAINT RECTANGLE------------------------");
+				System.out.println("InitialX: " + point.x + " InitialY: " + point.y);
+				System.out.println("FinalX  : " + point.x * this.rowHt + " FinalY  : " + point.y * this.rowWid);
+				System.out.println("STROKE: " + this.stroke + " strokeSpacer: " + strokeSpacer);
+				System.out.println("-------------------------------------------------------------");
+			}
+			g.setColor(color);
+			g.drawRect((xActual + point.x) * this.rowHt + strokeSpacer, 
+					   (yActual + point.y) * this.rowWid + strokeSpacer,
+					this.rowHt - strokeSpacer*2, this.rowWid - strokeSpacer*2);
 		}
 	}
 
@@ -196,9 +217,9 @@ public class GridCanvas extends JPanel{
 				System.out.println("-------------------------------------------------------------");
 			}
 			g.setColor(color);
-			g.fillOval((xActual + point.x) * this.rowHt + Math.round((float) this.rowHt / 3),
-					   (yActual + point.y) * this.rowWid + Math.round((float) this.rowWid / 3), 
-					   Math.round((float) this.rowHt / 4), Math.round((float) this.rowHt / 4));
+			g.fillOval((xActual + point.x) * this.rowHt + Math.round((float) this.rowHt / 4),
+					   (yActual + point.y) * this.rowWid + Math.round((float) this.rowWid / 4), 
+					   Math.round((float) this.rowHt / 2), Math.round((float) this.rowHt / 2));
 
 		}
 	}
