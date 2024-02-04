@@ -92,6 +92,10 @@ public class App implements AfinderEvent{
 		infoMap.addDiferentCostPoint(punto);
 	}
 	
+	public void setDiagonalCost(boolean cost) {
+		infoMap.setDiagonalCost(cost);
+	}
+	
 	public void resetGrid() {
 		infoMap.clearAllData();
 		infoMap.setStart(new Point(10,10));

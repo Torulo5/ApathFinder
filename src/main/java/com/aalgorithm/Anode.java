@@ -36,6 +36,18 @@ public class Anode {
 		relatedPoints.add(new Point(coordenadas.x + 1, coordenadas.y - 1));
 	}
 	
+	public boolean isRelatedDiagonal(Point relatedNode) {
+		boolean isRelatedDiagonal = false;
+		if( (relatedNode.x ==  coordenadas.x + 1 && relatedNode.y == coordenadas.y + 1) ||
+			(relatedNode.x ==  coordenadas.x - 1 && relatedNode.y == coordenadas.y + 1)	||
+			(relatedNode.x ==  coordenadas.x - 1 && relatedNode.y == coordenadas.y - 1) ||
+			(relatedNode.x ==  coordenadas.x + 1 && relatedNode.y == coordenadas.y - 1)
+		) {
+			isRelatedDiagonal = true;
+		}
+		return isRelatedDiagonal;
+	}
+	
 	public ArrayList<Point> getRelatedNodes() {
 		if(relatedPoints == null) {
 			this.relatedPoints = new ArrayList<Point>();

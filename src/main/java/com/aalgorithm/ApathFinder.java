@@ -67,7 +67,12 @@ public class ApathFinder extends Thread{
 				if (closeSet.contains(aux))
 					continue;
 				
-				int tempG = current.getG() + infoMap.getCostOfPoint(relatedNode);
+				int diagolnalCost = 0;
+				if(infoMap.isDiagonalCost())
+					diagolnalCost = current.isRelatedDiagonal(relatedNode) ? 2 : 0;
+				
+				int costOfNewPoint = infoMap.getCostOfPoint(relatedNode);
+				int tempG = current.getG() + costOfNewPoint + diagolnalCost;
 				
 				Anode nodeToUpdate = getAnodeIfExistFromOpenSet(aux);
 				if (nodeToUpdate != null) {

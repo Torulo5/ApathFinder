@@ -14,6 +14,7 @@ public class InfoMap {
 	private ArrayList<Point> pointsDiferentCost = null;
 	private Point start = null;
 	private Point end = null;
+	private boolean diagonalCost = false;
 	
 	public InfoMap() {
 		this.pointsBlocked = new ArrayList<Point>();
@@ -68,6 +69,14 @@ public class InfoMap {
 		this.end = end;
 	}
 	
+	public boolean isDiagonalCost() {
+		return diagonalCost;
+	}
+
+	public void setDiagonalCost(boolean diagonalCost) {
+		this.diagonalCost = diagonalCost;
+	}
+
 	public void clearAllData() {
 		pointsBlocked.clear();
 		pointsDiferentCost.clear();

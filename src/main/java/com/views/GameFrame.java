@@ -10,6 +10,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
+
+import com.aalgorithm.InfoMap;
 import com.pathFinder.App;
 import com.views.gridcanvas.GridCanvas;
 import com.views.gridcanvas.GridCanvasEvent;
@@ -22,6 +24,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.ButtonGroup;
+import javax.swing.JToggleButton;
 
 
 public class GameFrame extends JFrame implements GridCanvasEvent{
@@ -103,6 +106,19 @@ public class GameFrame extends JFrame implements GridCanvasEvent{
 			}
 		});
 		panel_1.add(btnResetGrid);
+		
+		JCheckBox chckbxCosteDiagonal = new JCheckBox("Coste adicional diagonales");
+		chckbxCosteDiagonal.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				if(chckbxCosteDiagonal.isSelected()) {
+					finderApp.setDiagonalCost(true);
+				} else {
+					finderApp.setDiagonalCost(false);
+				}
+			}
+		});
+		panel_1.add(chckbxCosteDiagonal);
+		
 		
 		btnFind = new JButton("FIND");
 		btnFind.addActionListener(new ActionListener() {
